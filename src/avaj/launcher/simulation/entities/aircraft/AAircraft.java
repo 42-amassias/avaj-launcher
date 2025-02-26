@@ -24,6 +24,9 @@ public abstract class AAircraft extends AFlyable
 	@Override
 	public void updateConditions()
 	{
+		// TODO: maybe throw exception ??
+		if (super.weatherTower == null)
+			return ;
 		final Weather weather = super.weatherTower.getWeather(this.coordinates);
 		final Coordinates offset = offsets.get(weather);
 
