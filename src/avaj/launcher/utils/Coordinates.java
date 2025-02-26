@@ -13,6 +13,17 @@ public class Coordinates
 		this.height = height;
 	}
 
+	public Coordinates offset(Coordinates other)
+	{
+		assert other != null;
+
+		final int longitude = this.longitude + other.longitude;
+		final int latitude = this.latitude + other.latitude;
+		final int height = this.height + other.height;
+
+		return (new Coordinates(longitude, latitude, height));
+	}
+
 	public int getLongitude()
 	{
 		return (longitude);
