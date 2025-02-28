@@ -20,4 +20,10 @@ public class Helicopter extends AAircraft
 		offsets.put(Weather.FOG, new Coordinates(1, 0, 0));
 		offsets.put(Weather.SNOW, new Coordinates(0, 0, -12));
 	}
+
+	@Override
+	protected String getType()
+	{
+		return ("Helicopter");
+	}
 }

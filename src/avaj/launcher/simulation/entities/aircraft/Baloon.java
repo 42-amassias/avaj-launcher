@@ -19,4 +19,10 @@ public class Baloon extends AAircraft
 		offsets.put(Weather.FOG, new Coordinates(0, 0, -3));
 		offsets.put(Weather.SNOW, new Coordinates(0, 0, -15));
 	}
+
+	@Override
+	protected String getType()
+	{
+		return ("Baloon");
+	}
 }

@@ -13,12 +13,16 @@ public abstract class AAircraft extends AFlyable
 	protected String name;
 	protected Coordinates coordinates;
 
+	protected final String identifier;
+
 	protected AAircraft(long id, String name, Coordinates coordinates)
 	{
 		this.id = id;
 		this.name = name;
 		this.coordinates = coordinates;
-		this.offsets = new WeatherMap(Weather.class);
+		this.identifier = this.generateIdentifier();
+		this.offsets = new WeatherMap();
+		this.initializeOffsets(this.offsets);
 	}
 
 	@Override
@@ -33,6 +37,38 @@ public abstract class AAircraft extends AFlyable
 		this.coordinates = this.coordinates.offset(offset);
 	}
 
+	public long getId()
+	{
+		return (this.id);
+	}
+
+	public String getName()
+	{
+		return (this.name);
+	}
+
+	public Coordinates getCoordinates()
+	{
+		return (this.coordinates);
+	}
+
+	@Override
+	public String toString()
+	{
+		return (this.identifier);
+	}
+
 	protected abstract void initializeOffsets(WeatherMap offsets);
+
+	protected abstract String getType();
+
+	private String generateIdentifier()
+	{
+		return (String.format("%s#%s(%d)",
+			this.getType(),
+			this.getName(),
+			this.getId()
+		));
+	}
 
 }

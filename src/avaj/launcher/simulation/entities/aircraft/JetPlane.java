@@ -19,4 +19,10 @@ public class JetPlane extends AAircraft
 		offsets.put(Weather.FOG, new Coordinates(0, 1, 0));
 		offsets.put(Weather.SNOW, new Coordinates(0, 0, -7));
 	}
+
+	@Override
+	protected String getType()
+	{
+		return ("JetPlane");
+	}
 }

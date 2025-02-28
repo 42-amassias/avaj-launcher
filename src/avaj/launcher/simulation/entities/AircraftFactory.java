@@ -19,8 +19,7 @@ public class AircraftFactory
 		final String enumName = convertCamelCaseToUpperSnake(type);
 		final AircraftType enumType = AircraftType.valueOf(enumName);
 
-		if (enumType == null)
-			return (null);
+		assert enumType != null;
 		return (enumType.create(AircraftFactory.id++, name, coordinates));
 	}
 
