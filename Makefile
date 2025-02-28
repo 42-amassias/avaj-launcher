@@ -1,20 +1,22 @@
-SRC_DIR		:=	src
-BIN_DIR		:=	bin
+SRC_DIR			:=	src
+BIN_DIR			:=	bin
 
-MAIN_CLASS	:=	avaj.launcher.Main
+MAIN_CLASS		:=	avaj.launcher.Main
 
-SOURCES		:=	$(shell find $(SRC_DIR) -type f -name \*.java)
-CLASSES		:=	$(SOURCES:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
+SOURCES			:=	$(shell find $(SRC_DIR) -type f -name \*.java)
+CLASSES			:=	$(SOURCES:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
+
+SCENARIO_FILE	:=	subject/scenario.txt
 
 all: $(CLASSES)
 
 run: $(CLASSES)
-	java -cp $(BIN_DIR) $(MAIN_CLASS)
+	java -cp $(BIN_DIR) $(MAIN_CLASS) $(SCENARIO_FILE)
 
 clean:
 	rm -rf $(BIN_DIR)
 
 fclean: clean
 
-$(BIN_DIR)/%.class: $(SRC_DIR)/%.java
-	javac -d $(BIN_DIR) $<
+$(CLASSES): $(SOURCES)
+	javac -d $(BIN_DIR) $^
