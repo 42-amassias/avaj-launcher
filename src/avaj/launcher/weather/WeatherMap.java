@@ -2,9 +2,7 @@ package avaj.launcher.weather;
 
 import java.util.EnumMap;
 
-import avaj.launcher.utils.Coordinates;
-
-public class WeatherMap extends EnumMap<Weather, Coordinates>
+public class WeatherMap<T> extends EnumMap<Weather, T>
 {
 
 	public WeatherMap()

@@ -32,6 +32,8 @@ public class Tower
 
 	protected void conditionChanged()
 	{
-		observers.forEach(AFlyable::updateConditions);
+		List<AFlyable> copy = new ArrayList<>();
+		observers.forEach(copy::add);
+		copy.forEach(AFlyable::updateConditions);
 	}
 }
