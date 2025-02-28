@@ -15,6 +15,8 @@ public class Simulation
 	{
 		assert flyables != null;
 		this.flyables = new ArrayList<>();
+		this.weatherTower = new WeatherTower();
+
 		for (AFlyable flyable : flyables)
 		{
 			assert flyable != null;
