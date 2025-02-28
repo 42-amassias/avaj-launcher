@@ -15,7 +15,7 @@ public class Main
 		final ScenarioParser parser = new ScenarioParser(args[0]);
 		final Simulation simulation = new Simulation(parser.getFlyables());
 
-		for (int i = 0; i < parser.getSteps(); ++i)
+		for (int i = 0; i < parser.getStepCount(); ++i)
 			simulation.step();
 	}
 }

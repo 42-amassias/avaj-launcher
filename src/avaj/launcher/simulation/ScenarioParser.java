@@ -15,7 +15,7 @@ import avaj.launcher.utils.Coordinates;
 public class ScenarioParser
 {
 	private List<AFlyable> flyables;
-	private int steps;
+	private int stepCount;
 	private final String path;
 
 	public ScenarioParser(String path) throws FileNotFoundException, EOFException, NumberFormatException
@@ -30,9 +30,9 @@ public class ScenarioParser
 		return (this.flyables);
 	}
 
-	public int getSteps()
+	public int getStepCount()
 	{
-		return (this.steps);
+		return (this.stepCount);
 	}
 
 	private void parse() throws FileNotFoundException, EOFException, NumberFormatException
@@ -42,17 +42,13 @@ public class ScenarioParser
 
 		try (Scanner sc = new Scanner(f))
 		{
-			this.steps = this.getSteps(sc);
+			this.stepCount = this.getStepCount(sc);
 			while (sc.hasNextLine())
-			{
-				final String line = sc.nextLine();
-
-				flyables.add(this.getAircraft(line));
-			}
+				flyables.add(this.getAircraft(sc.nextLine()));
 		}
 	}
 
-	private int getSteps(Scanner sc) throws EOFException, NumberFormatException
+	private int getStepCount(Scanner sc) throws EOFException, NumberFormatException
 	{
 		if (!sc.hasNextLine())
 			throw new EOFException();
@@ -70,6 +66,16 @@ public class ScenarioParser
 		final int height = Integer.parseInt(tokens[4]);
 		final Coordinates coordinates = new Coordinates(longitude, latitude, height);
 
+		if (!ScenarioParser.validate(coordinates))
+			throw new IllegalArgumentException();
+
 		return (AircraftFactory.newAircraft(type, name, coordinates));
+	}
+
+	private static boolean validate(Coordinates coordinates)
+	{
+		return (coordinates.getLongitude() >= 0
+			&& coordinates.getLatitude() >= 0
+			&& coordinates.getHeight() >= 0);
 	}
 }
