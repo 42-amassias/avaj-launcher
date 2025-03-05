@@ -1,5 +1,6 @@
 package avaj.launcher.simulation.entities;
 
+import avaj.launcher.exception.UnknownAircraftException;
 import avaj.launcher.simulation.entities.aircraft.AAircraft;
 import avaj.launcher.simulation.entities.aircraft.AircraftType;
 import avaj.launcher.utils.Coordinates;
@@ -12,12 +13,20 @@ public class AircraftFactory
 	{}
 
 	/**
-	 * @throws IllegalArgumentException If the type in unknown.
+	 * @throws UnknownAircraftException If the aircraft type in unknown.
 	 */
-	public static AAircraft newAircraft(String type, String name, Coordinates coordinates) throws IllegalArgumentException
+	public static AAircraft newAircraft(String type, String name, Coordinates coordinates) throws UnknownAircraftException
 	{
 		final String enumName = convertCamelCaseToUpperSnake(type);
-		final AircraftType enumType = AircraftType.valueOf(enumName);
+		final AircraftType enumType;
+
+		try
+		{
+			enumType = AircraftType.valueOf(enumName);
+		} catch (Exception e)
+		{
+			throw new UnknownAircraftException(type);
+		}
 
 		assert enumType != null;
 		return (enumType.create(AircraftFactory.id++, name, coordinates));

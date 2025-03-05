@@ -11,7 +11,7 @@ SCENARIO_FILE	:=	subject/scenario.txt
 all: $(CLASSES)
 
 run: $(CLASSES)
-	java -cp $(BIN_DIR) $(MAIN_CLASS) $(SCENARIO_FILE)
+	@java -cp $(BIN_DIR) $(MAIN_CLASS) $(SCENARIO_FILE)
 
 clean:
 	rm -rf $(BIN_DIR)

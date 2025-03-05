@@ -1,8 +1,14 @@
 package avaj.launcher;
 
+import avaj.launcher.exception.AircraftDescriptorIncompleteException;
+import avaj.launcher.exception.AircraftDescriptorTooMuchDataException;
+import avaj.launcher.exception.UnknownAircraftException;
 import avaj.launcher.simulation.Simulation;
 import avaj.launcher.utils.Logger;
 import avaj.launcher.simulation.ScenarioParser;
+
+import java.io.EOFException;
+import java.io.FileNotFoundException;
 
 public class Main
 {
@@ -21,6 +27,29 @@ public class Main
 
 			for (int i = 0; i < parser.getStepCount(); ++i)
 				simulation.step();
+		}
+		
+		catch (FileNotFoundException e)
+		{
+			System.err.println("Could not find scenario file.");
+		} catch (EOFException e)
+		{
+			System.err.println("Scenario file is not correctly formatted: missing iteration count.");
+		} catch (NumberFormatException e)
+		{
+			System.err.println("Scenario file is not correctly formatted: Number format.");
+		} catch (AircraftDescriptorIncompleteException e)
+		{
+			System.err.println("Scenario file is not correctly formatted: Missing aircraft data.");
+		} catch (AircraftDescriptorTooMuchDataException e)
+		{
+			System.err.println("Scenario file is not correctly formatted: Too much data for an aircraft.");
+		} catch (UnknownAircraftException e)
+		{
+			System.err.println("Scenario file is not correctly formatted: Unknown aircraft.");
+		} catch (Exception e)
+		{
+			System.err.println("Unexpected exception: " + e.getMessage());
 		} finally
 		{
 			Logger.getInstance().stop();

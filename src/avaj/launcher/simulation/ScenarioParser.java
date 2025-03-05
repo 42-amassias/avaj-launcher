@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import avaj.launcher.exception.AircraftDescriptorIncompleteException;
+import avaj.launcher.exception.AircraftDescriptorTooMuchDataException;
+import avaj.launcher.exception.UnknownAircraftException;
 import avaj.launcher.simulation.entities.AFlyable;
 import avaj.launcher.simulation.entities.AircraftFactory;
 import avaj.launcher.simulation.entities.aircraft.AAircraft;
@@ -18,7 +21,7 @@ public class ScenarioParser
 	private int stepCount;
 	private final String path;
 
-	public ScenarioParser(String path) throws FileNotFoundException, EOFException, NumberFormatException
+	public ScenarioParser(String path) throws FileNotFoundException, EOFException, NumberFormatException, UnknownAircraftException, AircraftDescriptorIncompleteException, AircraftDescriptorTooMuchDataException
 	{
 		assert path != null;
 		this.path = path;
@@ -35,7 +38,7 @@ public class ScenarioParser
 		return (this.stepCount);
 	}
 
-	private void parse() throws FileNotFoundException, EOFException, NumberFormatException
+	private void parse() throws FileNotFoundException, EOFException, NumberFormatException, UnknownAircraftException, AircraftDescriptorIncompleteException, AircraftDescriptorTooMuchDataException
 	{
 		final File f = new File(path);
 		flyables = new ArrayList<>();
@@ -56,9 +59,13 @@ public class ScenarioParser
 		return (Integer.parseInt(str));
 	}
 
-	private AAircraft getAircraft(String descriptor)
+	private AAircraft getAircraft(String descriptor) throws UnknownAircraftException, AircraftDescriptorIncompleteException, AircraftDescriptorTooMuchDataException
 	{
 		final String[] tokens = descriptor.split(" ");
+		if (tokens.length < 5)
+			throw new AircraftDescriptorIncompleteException();
+		if (tokens.length > 5)
+			throw new AircraftDescriptorTooMuchDataException();
 		final String type = tokens[0];
 		final String name = tokens[1];
 		final int longitude = Integer.parseInt(tokens[2]);
