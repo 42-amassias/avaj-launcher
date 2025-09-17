@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Logger
 {
-	private static final String OUTPUT_FILE_NAME = "./simulation.txt";
+	private static final String OUTPUT_FILE_NAME = System.getenv("OUT") != null ? System.getenv("OUT") : "./simulation.txt";
 
 	private static Logger instance = null;
 
