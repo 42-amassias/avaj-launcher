@@ -22,15 +22,6 @@ public class Helicopter extends AAircraft
 	}
 
 	@Override
-	protected void initializeWeatherMessages(WeatherMap<String> messages)
-	{
-		messages.put(Weather.SUN, "SUN");
-		messages.put(Weather.RAIN, "RAIN");
-		messages.put(Weather.FOG, "FOG");
-		messages.put(Weather.SNOW, "SNOW");
-	}
-
-	@Override
 	protected String getType()
 	{
 		return ("Helicopter");

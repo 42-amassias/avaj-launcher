@@ -1,6 +1,7 @@
 package avaj.launcher.tower;
 
 import avaj.launcher.exception.FlyableAlreadyRegisteredException;
+import avaj.launcher.exception.NoSuchFlyableException;
 import avaj.launcher.simulation.entities.AFlyable;
 import avaj.launcher.utils.Coordinates;
 import avaj.launcher.utils.Logger;
@@ -27,5 +28,12 @@ public class WeatherTower extends Tower
 	{
 		super.register(aircraft);
 		Logger.getInstance().log("Weather tower: %s registered to weather tower.", aircraft.toString());
+	}
+
+	@Override
+	public void unregister(AFlyable aircraft) throws NoSuchFlyableException
+	{
+		super.unregister(aircraft);
+		Logger.getInstance().log("Weather tower: %s unregistered from weather tower.", aircraft.toString());
 	}
 }

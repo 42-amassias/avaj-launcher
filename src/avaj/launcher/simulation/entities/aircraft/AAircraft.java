@@ -32,7 +32,6 @@ public abstract class AAircraft extends AFlyable
 	@Override
 	public void updateConditions()
 	{
-		// TODO: maybe throw exception ??
 		if (super.weatherTower == null)
 			return ;
 		final Weather weather = super.weatherTower.getWeather(this.coordinates);
@@ -50,7 +49,6 @@ public abstract class AAircraft extends AFlyable
 			weatherTower.unregister(this);
 		} catch (Exception e)
 		{
-			// TODO
 		}
 		Logger.getInstance().log("%s: %s", toString(), getLandingMessage());
 	}
@@ -77,9 +75,20 @@ public abstract class AAircraft extends AFlyable
 	}
 
 	protected abstract void initializeOffsets(WeatherMap<Coordinates> offsets);
-	protected abstract void initializeWeatherMessages(WeatherMap<String> messages);
 
-	protected abstract String getType();
+	protected void initializeWeatherMessages(WeatherMap<String> messages)
+	{
+		messages.put(Weather.SUN, "SUN (default)");
+		messages.put(Weather.RAIN, "RAIN (default)");
+		messages.put(Weather.FOG, "FOG (default)");
+		messages.put(Weather.SNOW, "SNOW (default)");
+	}
+
+	protected String getType()
+	{
+		return ("Aircraft");
+	}
+
 	protected String getLandingMessage()
 	{
 		return ("Landing");
