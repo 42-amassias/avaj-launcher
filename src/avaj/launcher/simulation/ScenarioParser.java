@@ -73,16 +73,18 @@ public class ScenarioParser
 		final int height = Integer.parseInt(tokens[4]);
 		final Coordinates coordinates = new Coordinates(longitude, latitude, height);
 
-		if (!ScenarioParser.validate(coordinates))
-			throw new IllegalArgumentException();
+		ScenarioParser.validate(coordinates, name);
 
 		return (AircraftFactory.newAircraft(type, name, coordinates));
 	}
 
-	private static boolean validate(Coordinates coordinates)
+	private static void validate(Coordinates coordinates, String name)
 	{
-		return (coordinates.getLongitude() >= 0
-			&& coordinates.getLatitude() >= 0
-			&& coordinates.getHeight() >= 0);
+		if (coordinates.getLongitude() < 0)
+			throw new IllegalArgumentException("Negative longitude for aircraft \"" + name + "\"");
+		if (coordinates.getLatitude() < 0)
+			throw new IllegalArgumentException("Negative latitude for aircraft \"" + name + "\"");
+		if (coordinates.getHeight() < 0)
+			throw new IllegalArgumentException("Negative height for aircraft \"" + name + "\"");
 	}
 }

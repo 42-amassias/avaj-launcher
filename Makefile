@@ -18,5 +18,7 @@ clean:
 
 fclean: clean
 
+re: fclean all
+
 $(CLASSES): $(SOURCES)
 	javac -d $(BIN_DIR) $^

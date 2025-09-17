@@ -47,9 +47,14 @@ public class Main
 		} catch (UnknownAircraftException e)
 		{
 			System.err.println("Scenario file is not correctly formatted: Unknown aircraft.");
-		} catch (Exception e)
+		} catch(IllegalArgumentException e)
+		{
+			System.err.println(e.getMessage());
+		}
+		catch (Exception e)
 		{
 			System.err.println("Unexpected exception: " + e.getMessage());
+			e.printStackTrace();
 		} finally
 		{
 			Logger.getInstance().stop();
